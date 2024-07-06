@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils.types import ChoiceType
 
 class User(Base):
-    __table_name__ = 'users'
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(25), unique=True, index=True)
     email = Column(String(100), unique=True, index=True)
@@ -17,7 +17,7 @@ class User(Base):
         return f"<User(username='{self.username}', email='{self.email}')>"
     
 class Product(Base):
-    __table_name__ = 'products'
+    __tablename__ = 'products'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), unique=True, index=True)
     description = Column(Text)
@@ -35,9 +35,9 @@ class Order(Base):
         ('DELIVERED','delivered'),
         ('CANCELLED','cancelled')
     )
-    __table_name__ = 'orders'
+    __tablename__ = 'orders'
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     product_id = Column(Integer, ForeignKey('products.id'))
     status = Column(ChoiceType(ORDER_STATUS), default='pending')
     user = relationship("User", back_populates='orders')
