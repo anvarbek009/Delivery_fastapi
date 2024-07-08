@@ -1,0 +1,17 @@
+from pydantic import BaseModel
+from typing import Optional,Any
+from pydantic import BaseModel, EmailStr, validator
+
+class SignupModel(BaseModel):
+    username: str
+    email: str
+    password: str
+    is_active: bool
+    is_staff: bool
+
+class LoginModel(BaseModel):
+    username_or_email: str
+    password: str
+
+class Settings(BaseModel):
+    authjwt_secret_key:str="e612d5678d48823cf1cef29abdb691ea31018024d6eb1cb4c794237d16a92ce5"

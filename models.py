@@ -38,7 +38,7 @@ class Order(Base):
     __tablename__ = 'orders'
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey('users.id'))
-    product_id = Column(Integer, ForeignKey('products.id'))
+    product_id = Column(Integer, ForeignKey('product.id'))
     status = Column(ChoiceType(ORDER_STATUS), default='pending')
     user = relationship("User", back_populates='orders')
     product = relationship("Product", back_populates='orders')
@@ -46,6 +46,7 @@ class Order(Base):
 
     def __repr__(self):
         return f"<Order(user_id='{self.user_id}', product_id='{self.product_id}', status='{self.status}')>"
+
     
 
 
