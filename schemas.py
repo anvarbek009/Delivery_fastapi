@@ -13,5 +13,19 @@ class LoginModel(BaseModel):
     username_or_email: str
     password: str
 
+class ProductSchema(BaseModel):
+    id: Optional[int]
+    name: str
+    price: int
+
+    class Config:
+        orm_mode = True
+        schema_extra = {
+                "example": {
+                    "name": "Example Product",
+                    "price": 100,
+                }
+        }
+
 class Settings(BaseModel):
     authjwt_secret_key:str="e612d5678d48823cf1cef29abdb691ea31018024d6eb1cb4c794237d16a92ce5"

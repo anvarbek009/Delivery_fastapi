@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
-order_routers =APIRouter(
+order_router =APIRouter(
     prefix='/orders'
 )
 
-@order_routers.get('/')
+@order_router.get('/')
 async def get_orders():
     return {'message': 'Welcome to the orders endpoint!'}
 
-@order_routers.get('/c')
+@order_router.get('/c')
 async def create_order():
     return {'message': 'Order created successfully!'}

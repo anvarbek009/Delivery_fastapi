@@ -7,6 +7,7 @@ from schemas import SignupModel, LoginModel
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from fastapi_jwt_auth import AuthJWT
+session=SesionLocal(bind=engine)
 auth_router = APIRouter(
     prefix="/auth"
 )
@@ -22,9 +23,9 @@ async def auth_(Authorize: AuthJWT=Depends()):
 async def auth_():
     return {"message": "Hello auth"}
 
+
 @auth_router.post('/signup', status_code=201) 
 async def signup(user: SignupModel):
-    session = SesionLocal() # Create a new session instance
     db_email = session.query(User).filter(User.email == user.email ).first()
     if db_email is not None:
         return {'message': 'Email already exists', 'status_code': status.HTTP_400_BAD_REQUEST}
@@ -51,7 +52,6 @@ async def signup(user: SignupModel):
 
 @auth_router.post('/login', status_code=200)
 async def login(user: LoginModel, Authorize: AuthJWT=Depends()): 
-    session = SesionLocal()
     db_user = session.query(User).filter(
     or_(
         User.username == user.username_or_email, User.email == user.username_or_email
